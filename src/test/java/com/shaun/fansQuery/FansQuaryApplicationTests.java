@@ -1,4 +1,4 @@
-package com.shaun.fansQuary;
+package com.shaun.fansQuery;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,0 +1,7 @@
+
+spring:
+  mail:
+    host: smtp.126.com
+    username: Shaun9421@126.com
+    password: PTKYPELBJVEYAUPW
+    default-encoding: UTF-8
