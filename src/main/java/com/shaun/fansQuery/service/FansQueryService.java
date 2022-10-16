@@ -7,13 +7,18 @@ import com.shaun.fansQuery.entity.FansQueryEntity;
 import com.shaun.fansQuery.entity.JsonTest;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
 public class FansQueryService {
+
+    @Autowired
+    private  MailService mailService;
     public void fansQuery() throws Exception {
         /**
          *     * @param host   主机地址
@@ -45,6 +50,21 @@ public class FansQueryService {
             JsonTest person = JSONObject.parseObject(s, JsonTest.class);
             for (FansQueryEntity datum : person.getData()){
                 System.out.println("粉丝数是:"+datum.getFollower());
+
+                if (!ObjectUtils.isEmpty(datum.getFollower())){
+                    String to = "shaun9421@126.com";
+                    String subject = "新增粉丝，详情查看";
+                    String content = "<html>\n"+
+                            "<body>\n"+
+                            "<h3 style='color:blue'>涨粉丝了好兄弟 你现在有"+datum.getFollower()+"个粉丝</h3>\n"+
+                            "</body>\n"+
+                            "</html>"
+                            ;
+
+
+
+                mailService.sendHTMLMail(to, subject, content);
+                }
             }
         }
 
